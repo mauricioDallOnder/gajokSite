@@ -10,7 +10,7 @@ const authOptions = {
         url: 'https://api.instagram.com/oauth/authorize',
         params: { 
           scope: 'user_profile,user_media',
-          redirect_uri: 'https://gajok.vercel.app/api/auth/callback/instagram' // Substitua com sua URL exata
+          redirect_uri: 'https://gajok.vercel.app/GalleryPage' // Substitua com sua URL exata
         },
       },
     }),
@@ -38,7 +38,7 @@ const authOptions = {
       // Se o login for bem-sucedido e a URL de destino não for especificada,
       // redireciona para o Google. Caso contrário, redireciona para a URL de destino ou para a baseUrl.
       if (url === baseUrl) {
-        return 'https://gajok.vercel.app/api/auth/callback/instagram';
+        return 'https://gajok.vercel.app/GalleryPage';
       }
       return url ?? baseUrl;
     }
