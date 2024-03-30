@@ -7,8 +7,11 @@ export const authOptions = {
       clientId: process.env.INSTAGRAM_CLIENT_ID,
       clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
       authorization: {
-        url: "https://api.instagram.com/oauth/authorize",
-        params: { scope: "user_profile,user_media" },
+        url: 'https://api.instagram.com/oauth/authorize',
+        params: { 
+          scope: 'user_profile,user_media',
+          redirect_uri: 'https://suaurl.com/api/auth/callback/instagram' // Substitua com sua URL exata
+        },
       },
     }),
   ],
