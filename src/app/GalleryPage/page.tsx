@@ -15,7 +15,7 @@ export default function GalleryPage() {
 
   useEffect(() => {
     async function fetchPhotos() {
-      const response = await fetch('/api/instagram-photos');
+      const response = await fetch('/api');
       const data = await response.json();
 
       if (response.ok) {
