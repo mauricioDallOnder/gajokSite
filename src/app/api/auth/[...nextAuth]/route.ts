@@ -10,7 +10,7 @@ const authOptions = {
         url: 'https://api.instagram.com/oauth/authorize',
         params: { 
           scope: 'user_profile,user_media',
-          redirect_uri: 'https://gajok.vercel.app/GalleryPage' // Substitua com sua URL exata
+          redirect_uri: 'https://gajok.vercel.app/api/auth/callback/instagram' // Substitua com sua URL exata
         },
       },
     }),
