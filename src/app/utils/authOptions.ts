@@ -17,19 +17,17 @@ export const authOptions = {
   ],
   callbacks: {
     // @ts-ignore
-    async jwt({ token, user }) {
-      // Aqui você adiciona propriedades ao token JWT. O exemplo supõe que `user` tem uma propriedade `role`.
-      if (user?.role) {
-        token.role = user.role;
+    async jwt({ token, account }) {
+      // Se o login foi bem-sucedido e temos um account, então podemos definir o accessToken
+      if (account) {
+        token.accessToken = account.access_token;
       }
       return token;
     },
     // @ts-ignore
     async session({ session, token }) {
       // Adiciona a `role` do token JWT ao objeto `session`.
-      if (token.role) {
-        session.user.role = token.role;
-      }
+      session.accessToken = token.accessToken;
       return session;
     },
     // Adicione o callback redirect aqui

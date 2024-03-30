@@ -13,9 +13,10 @@ interface InstagramMedia {
 export default function GalleryPage() {
   const [photos, setPhotos] = useState<InstagramMedia[]>([]);
 
+  
   useEffect(() => {
     async function fetchPhotos() {
-      const response = await fetch('/api/route');
+      const response = await fetch('/api');
       const data = await response.json();
 
       if (response.ok) {

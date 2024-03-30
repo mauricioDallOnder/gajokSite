@@ -1,39 +1,46 @@
-// pages/api/instagram-photos.ts
-
-
+// src/pages/api/instagram-photos.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../utils/authOptions";
+import { authOptions } from '../utils/authOptions';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
-  // Converta a requisição Next.js em algo que getServerSession possa usar
-  const req = { headers: Object.fromEntries(request.headers) };
-  const res = {};
-  const session = await getServerSession(req as any, res as any, authOptions);
+export async function GET(req: NextRequest, res: NextResponse) {
+  const session = await getServerSession(
+    req as unknown as NextApiRequest,
+    {
+      ...res,
+      getHeader: (name: string) => res.headers?.get(name),
+      setHeader: (name: string, value: string) => res.headers?.set(name, value),
+    } as unknown as NextApiResponse,
+    authOptions
+  );
 
   if (!session) {
-    return new Response(JSON.stringify({ error: "Não autenticado" }), { status: 401 });
+    return Response.json({ message: 'You must be logged in.' }, { status: 401 })
   }
 
-  const accessToken = session.accessToken as string;
+  // Certifique-se de que o accessToken está sendo corretamente armazenado na sessão
+  // Este passo depende da sua implementação específica no callback jwt de authOptions
+  const accessToken = session.accessToken;
+
+  if (!accessToken) {
+    return Response.json({ message: 'token nao disponivel.' }, { status: 401 })
+    
+  }
 
   const url = `https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url&access_token=${accessToken}`;
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    const instagramResponse = await fetch(url);
+    const data = await instagramResponse.json();
 
     if (data.error) {
       throw new Error(data.error.message);
     }
 
-    // Retorne as fotos como resposta JSON
-    return new Response(JSON.stringify(data.data), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    // Envia os dados obtidos da API do Instagram como resposta
+    Response.json(data.data);
+  } catch (error:any) {
+    return Response.json({ message: 'erro.' }, { status: 500 })
   }
 }
