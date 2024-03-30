@@ -1,31 +1,39 @@
 // pages/api/instagram-photos.ts
 
-import { NextApiRequest, NextApiResponse } from "next";
+
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../utils/authOptions";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getServerSession(req, res, authOptions);
+export async function GET(request: Request) {
+  // Converta a requisição Next.js em algo que getServerSession possa usar
+  const req = { headers: Object.fromEntries(request.headers) };
+  const res = {};
+  const session = await getServerSession(req as any, res as any, authOptions);
 
   if (!session) {
-    return res.status(401).json({ error: "Não autenticado" });
+    return new Response(JSON.stringify({ error: "Não autenticado" }), { status: 401 });
   }
 
-  const accessToken = session.accessToken as string; // Supondo que o accessToken é armazenado na sessão
+  const accessToken = session.accessToken as string;
 
   const url = `https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url&access_token=${accessToken}`;
 
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data)
 
     if (data.error) {
       throw new Error(data.error.message);
     }
 
-    res.status(200).json(data.data); // Envie as fotos como resposta
-  } catch (error:any) {
-    res.status(500).json({ error: error.message });
+    // Retorne as fotos como resposta JSON
+    return new Response(JSON.stringify(data.data), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error: any) {
+    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }
