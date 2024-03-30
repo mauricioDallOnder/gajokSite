@@ -15,7 +15,7 @@ export default function GalleryPage() {
 
   useEffect(() => {
     async function fetchPhotos() {
-      const response = await fetch('/api');
+      const response = await fetch('/api/route');
       const data = await response.json();
 
       if (response.ok) {
