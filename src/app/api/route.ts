@@ -39,8 +39,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     // Envia os dados obtidos da API do Instagram como resposta
-    Response.json(data.data);
-  } catch (error:any) {
-    return Response.json({ message: 'erro.' }, { status: 500 })
+    return new Response(JSON.stringify(data.data), { status: 200, headers: { 'Content-Type': 'application/json' }});
+  } catch (error: any) {
+    return new Response(JSON.stringify({ message: 'Error fetching Instagram media.' }), { status: 500, headers: { 'Content-Type': 'application/json' }});
   }
 }
