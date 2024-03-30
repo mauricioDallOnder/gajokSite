@@ -1,16 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import {
-  ImageList,
-  ImageListItem,
-  Box,
-  Typography,
-  Modal,
-  IconButton,
-  useMediaQuery,
-  useTheme
-} from '@mui/material';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import { ImageList, ImageListItem, Box, Typography, Modal, useMediaQuery, useTheme } from '@mui/material';
 import HeaderFixed from '../components/HeaderFixed';
 import Footer from '../components/Footer';
 
@@ -19,92 +9,98 @@ interface InstagramMedia {
   caption?: string;
   media_type: string;
   media_url: string;
-  is_video?: boolean;
 }
 
 export default function GalleryPage() {
   const [photos, setPhotos] = useState<InstagramMedia[]>([]);
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedVideoUrl, setSelectedVideoUrl] = useState('');
+  const [open, setOpen] = useState(false);
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const getColsForBreakpoints = () => isSmallScreen ? 2 : 5;
 
   useEffect(() => {
     async function fetchPhotos() {
       const response = await fetch('/api');
-      const data = await response.json();
       if (response.ok) {
-        setPhotos(data);
+        const data: InstagramMedia[] = await response.json();
+        const filteredData = data.filter(item => item.media_type !== 'VIDEO');
+        setPhotos(filteredData);
       } else {
-        console.error(data.error);
+        console.error('Failed to fetch data');
       }
     }
     fetchPhotos();
   }, []);
 
-  const handleOpenModal = (videoUrl: string) => {
-    setSelectedVideoUrl(videoUrl);
-    setOpenModal(true);
+  const handleOpen = (imgUrl: string) => {
+    setSelectedImg(imgUrl);
+    setOpen(true);
   };
 
-  const handleCloseModal = () => setOpenModal(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  const getColsForBreakpoints = () => {
-    if (isSmallScreen) {
-      return 2; // No mobile, mostraremos 2 imagens por linha
-    }
-    // Para telas maiores, podemos mostrar mais imagens por linha
-    return 5; // Para desktop
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
   };
 
   return (
     <>
       <HeaderFixed />
-      <Box sx={{ bgcolor: '#00356E', pt: 8, pb: 6, display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ bgcolor: '#37474F', pt: 8, pb: 6, display: 'flex', justifyContent: 'center', alignItems: "center", flexDirection: "column", marginTop: "100px" }}>
+       {/* Styled title com linhas visíveis */}
+       <Box sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          mb: 4,
+          width: '80%', // Garante que a linha seja visível
+        }}>
+          <Box sx={{ flexGrow: 1, height: "4px", bgcolor: "#D32F2F" }} /> {/* Altura aumentada e cor ajustada */}
+          <Typography variant="h4" component="span" sx={{
+            mx: 2,
+            fontFamily: "Big Shoulders Text",
+            color: "white",
+            fontSize: "2rem",
+            textShadow: "2px 2px 8px rgba(0, 0, 0, 0.6)",
+          }}>
+            GALERIA
+          </Typography>
+          <Box sx={{ flexGrow: 1, height: "4px", bgcolor: "#D32F2F" }} />
+        </Box>
+
         <Box sx={{ width: '100%', maxWidth: 1200, px: isSmallScreen ? 2 : 8 }}>
-          <Typography variant="h4" sx={{ color: 'white', fontWeight: 'bold', textAlign: 'center', mb: 4 }}>GALERIA</Typography>
-          <ImageList variant="masonry" cols={getColsForBreakpoints()} gap={isSmallScreen ? 2 : 4}>
+          <ImageList cols={getColsForBreakpoints()} gap={8}>
             {photos.map((item) => (
-              <ImageListItem key={item.id}>
-                {item.is_video ? (
-                  <IconButton onClick={() => handleOpenModal(item.media_url)}>
-                    <PlayCircleOutlineIcon sx={{ fontSize: 60, color: 'white', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
-                    <img
-                      src={item.media_url}
-                      alt={item.caption}
-                      loading="lazy"
-                      style={{ filter: 'brightness(50%)', borderRadius: '4px', width: '100%', height: 'auto' }}
-                    />
-                  </IconButton>
-                ) : (
-                  <img
-                    src={`${item.media_url}?w=164&h=164&fit=crop&auto=format`}
-                    srcSet={`${item.media_url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                    alt={item.caption}
-                    loading="lazy"
-                    style={{ borderRadius: '4px', width: '100%', height: 'auto' }}
-                  />
-                )}
-                <Typography variant="caption" sx={{ color: 'white' }}>{item.caption}</Typography>
+              <ImageListItem key={item.id} onClick={() => handleOpen(item.media_url)}>
+                <img
+                  src={item.media_url}
+                  alt={item.caption || ''}
+                  loading="lazy"
+                  style={{ width: '100%', height: 'auto', cursor: 'pointer' }}
+                />
               </ImageListItem>
             ))}
           </ImageList>
         </Box>
       </Box>
       <Modal
-        open={openModal}
-        onClose={handleCloseModal}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
-        <Box sx={{ outline: 'none' }}>
-          <video controls autoPlay style={{ maxHeight: '90vh', maxWidth: '90vw' }}>
-            <source src={selectedVideoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+        <Box sx={style}>
+          <img src={selectedImg || ''} alt="Expanded view" style={{ width: '100%', height: 'auto' }} />
         </Box>
       </Modal>
       <Footer />
