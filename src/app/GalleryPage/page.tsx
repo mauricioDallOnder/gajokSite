@@ -44,15 +44,15 @@ export default function GalleryPage() {
       <Box sx={{ bgcolor: '#00356E', pt: 8, pb: 6, display: 'flex', justifyContent: 'center' }}>
         <Box sx={{ width: '100%', maxWidth: 1200, px: isSmallScreen ? 2 : 8 }}> {/* Padding horizontal ajustado com base no tamanho da tela */}
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-            <Typography variant="h4" sx={{ color: 'white', fontWeight: 'bold' }}> <AuthButton/></Typography>
+            <Typography variant="h4" sx={{ color: 'white', fontWeight: 'bold' }}> GALERIA</Typography>
           
           </Box>
           <ImageList variant="masonry" cols={getColsForBreakpoints()} gap={isSmallScreen ? 2 : 4}> {/* Ajusta o espaçamento com base no tamanho da tela */}
             {photos.map((item) => (
               <ImageListItem key={item.id}>
                 <img
-                  src={`${item.media_url}?w=168&h=112&fit=crop&auto=format`}
-                  srcSet={`${item.media_url}?w=168&h=112&fit=crop&auto=format&dpr=2 2x`}
+                  src={item.media_url}
+                  srcSet={item.media_url}
                   alt={item.caption}
                   loading="lazy"
                  
