@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth'
 import InstagramProvider from "next-auth/providers/instagram";
-
+//auth
 export const authOptions = {
   providers: [
     InstagramProvider({
