@@ -19,8 +19,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     return Response.json({ message: 'You must be logged in.' }, { status: 401 })
   }
 
-  // Certifique-se de que o accessToken está sendo corretamente armazenado na sessão
-  // Este passo depende da sua implementação específica no callback jwt de authOptions
+  
   const accessToken = session.accessToken;
 
   if (!accessToken) {
