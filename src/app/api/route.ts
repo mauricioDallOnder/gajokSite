@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from '../utils/authOptions';
 import { NextRequest, NextResponse } from 'next/server';
+import { refreshAccessToken } from '../utils/refreshToken';
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const session = await getServerSession(
@@ -16,8 +17,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
   );
 
   if (!session || session) {
-    const accessToken = process.env.ACESS_TOKEN_PERMANENT!
-    //const accessToken = session.accessToken;
+    //const accessToken = await refreshAccessToken();
+    //const accessToken = process.env.ACESS_TOKEN_PERMANENT!
+    const accessToken = session.accessToken;
 
     if (!accessToken) {
       return Response.json({ message: 'token nao disponivel.' }, { status: 401 })
@@ -41,3 +43,5 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
   }
 }
+
+

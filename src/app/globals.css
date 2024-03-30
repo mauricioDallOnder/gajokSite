@@ -18,3 +18,30 @@ body {
 h1, h2, h3, .titulo {
   font-family: 'Big Shoulders Text', cursive;
 }
+
+
+.gallery-container {
+  padding: 4rem;
+  background-color: #00356E;
+  margin-top: 100px;
+}
+
+.columnPhoto {
+  display: block;
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding: 0.75rem;
+}
+
+.gallery-image {
+  border-radius: 4px; /* Raio da borda para as imagens */
+  transition: transform 0.3s ease-in-out; /* Animação suave para zoom */
+  filter: grayscale(100%);
+}
+
+.gallery-image:hover {
+  transform: scale(1.05); /* Efeito de zoom leve ao passar o mouse */
+}
+
+
