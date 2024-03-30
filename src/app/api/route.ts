@@ -16,8 +16,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
   );
 
   if (!session || session) {
-    const accessToken = "IGQWRNbm5BSlN6OXN4Wm55NzZASU2JWY2lZASElULVl6QS1OY0tZAUzd0V2gtWmhUbzZABMXVqekJWQlVIaGJRQWktMFdPX0pFM0thTzR0aXR3MjRtaGlRRGF6N1diUjhWUUl0M1ZAaWlVoM1c4QQZDZD";
-
+    const accessToken = process.env.ACESS_TOKEN_PERMANENT!
+    //const accessToken = session.accessToken;
 
     if (!accessToken) {
       return Response.json({ message: 'token nao disponivel.' }, { status: 401 })
