@@ -21,6 +21,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   
   const accessToken = session.accessToken;
+ 
 
   if (!accessToken) {
     return Response.json({ message: 'token nao disponivel.' }, { status: 401 })
