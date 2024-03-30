@@ -18,8 +18,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   if (!session || session) {
     //const accessToken = await refreshAccessToken();
-    //const accessToken = process.env.ACESS_TOKEN_PERMANENT!
-    const accessToken = session.accessToken;
+    const accessToken = process.env.ACESS_TOKEN_PERMANENT!
+    //const accessToken = session.accessToken;
 
     if (!accessToken) {
       return Response.json({ message: 'token nao disponivel.' }, { status: 401 })
