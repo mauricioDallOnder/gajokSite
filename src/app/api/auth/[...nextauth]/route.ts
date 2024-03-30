@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import InstagramProvider from "next-auth/providers/instagram";
 //auth
-export const authOptions = {
+const authOptions = {
   providers: [
     InstagramProvider({
       clientId: process.env.INSTAGRAM_CLIENT_ID,
@@ -50,6 +50,6 @@ export const authOptions = {
 
 
 // Exportação padrão para a configuração do NextAuth
-export const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
 
