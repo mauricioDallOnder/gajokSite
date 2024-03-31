@@ -6,6 +6,7 @@ import HeaderFixed from "./components/HeaderFixed";
 import { HomeBannerSection } from "./components/HomeBanner";
 import SchoolInfoSection from "./components/SchoolInfoSection";
 import SchoolTrainingSchedule from "./components/SchoolTrainingSchedule/SchoolTrainingSchedule";
+import React from "react";
 
 export default function Home() {
   useEffect(() => {
@@ -15,11 +16,14 @@ export default function Home() {
     <main style={{ overflow: "hidden" }}>
       <div>
         <HeaderFixed />
-
+     
         <HomeBannerSection
+        
           title={"Faça parte de nossa família!"}
           subtitle={"Incrições abertas!"}
         />
+        
+        <div id='sobre-nós-and-contato-section'>
         <SchoolInfoSection
           description="Bem-vindo à Gajok, o seu centro de excelência em taekwondo! Com uma 
           tradição de fomentar disciplina, resiliência e excelência, 
@@ -35,7 +39,10 @@ export default function Home() {
           phone={"54 99265-7367"}
           email={"wtfrafaeltkd@gmail.com"}
         />
+        </div>
+        <div id='modalidades-de-treino-section'>
         <SchoolTrainingSchedule />
+        </div>
         <Footer/>
       </div>
     </main>

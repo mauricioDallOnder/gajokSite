@@ -8,6 +8,7 @@ import logo from '../../../public/logoOficialSemFundo.png'; // Verifique o camin
 interface HomeBannerProps {
   title: string;
   subtitle: string;
+  
 }
 
 export const HomeBannerSection: React.FC<HomeBannerProps> = ({ title,subtitle }) => {

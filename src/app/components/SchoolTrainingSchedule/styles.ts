@@ -48,32 +48,6 @@ export const SubHeadline = styled(Typography)(({ theme }) => ({
 
 
 
-export const ChampionButton = styled(Button)(({ theme }) => ({
-  padding: theme.spacing(1, 4), // Espaçamento vertical e horizontal
-  fontSize: '23px', // Tamanho da fonte
-  letterSpacing: '0.1rem', // Espaçamento entre letras
-  color: theme.palette.common.white, // Cor do texto
-  backgroundColor: theme.palette.error.main, // Fundo vermelho do tema (ajuste conforme necessário)
-  fontWeight: 700, // Negrito
-  textTransform: 'none', // Mantém a caixa de texto como está
-  borderRadius: theme.shape.borderRadius, // Raio da borda do tema
-  boxShadow: 'none', // Sem sombra
 
-  '&:hover': {
-    backgroundColor: theme.palette.error.dark, // Escurece o botão quando passa o mouse
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Sombra leve no hover
-  },
-  
-  // Personalizações adicionais para desativado e focado
-  '&:disabled': {
-    backgroundColor: theme.palette.action.disabled,
-    color: theme.palette.action.disabled,
-  },
-  '&:focus': {
-    boxShadow: `0 0 0 2px ${theme.palette.primary.main}`, // Sombra que indica foco
-  },
-}));
 
-// Uso do botão no seu componente:
-// <ChampionButton variant="contained">SEE PROGRAMS</ChampionButton>
 
