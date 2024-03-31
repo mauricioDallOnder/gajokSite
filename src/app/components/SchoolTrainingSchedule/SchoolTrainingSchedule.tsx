@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography, Button, useTheme } from "@mui/material";
 import MedalIcon from "@mui/icons-material/EmojiEvents"; // Certifique-se de que MedalIcon está corretamente importado
 import Link from "next/link";
-import { ChampionButton, Headline, SubHeadline } from "./styles";
+import { Headline, SubHeadline } from "./styles";
 
 export default function SchoolTrainingSchedule() {
   const theme = useTheme();
