@@ -2,13 +2,7 @@
 "use client";
 import React from "react";
 import { Box, Grid, Typography, Paper, IconButton, Link } from "@mui/material";
-import {
-  Facebook,
-  FacebookRounded,
-  Instagram,
-  Twitter,
-  YouTube,
-} from "@mui/icons-material";
+
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
@@ -20,7 +14,7 @@ interface SchoolInfoSectionProps {
   googleMapsUrl: string;
 }
 
-const SchoolInfoSection: React.FC<SchoolInfoSectionProps> = ({
+const HomeInfoSection: React.FC<SchoolInfoSectionProps> = ({
   description,
   address,
   phone,
@@ -248,4 +242,4 @@ const SchoolInfoSection: React.FC<SchoolInfoSectionProps> = ({
   );
 };
 
-export default SchoolInfoSection;
+export default HomeInfoSection;

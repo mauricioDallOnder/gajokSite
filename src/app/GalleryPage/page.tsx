@@ -56,7 +56,7 @@ export default function GalleryPage() {
   return (
     <>
       <HeaderFixed />
-      <Box sx={{ bgcolor: '#37474F', pt: 8, pb: 6, display: 'flex', justifyContent: 'center', alignItems: "center", flexDirection: "column", marginTop: "100px" }}>
+      <Box sx={{pt: 8, pb: 6, display: 'flex', justifyContent: 'center', alignItems: "center", flexDirection: "column" }}>
        {/* Styled title com linhas visíveis */}
        <Box sx={{
           display: "flex",
@@ -85,7 +85,7 @@ export default function GalleryPage() {
                 <img
                   src={item.media_url}
                   alt={item.caption || ''}
-                  loading="lazy"
+                  
                   style={{ width: '100%', height: 'auto', cursor: 'pointer' }}
                 />
               </ImageListItem>

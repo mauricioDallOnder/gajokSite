@@ -4,8 +4,8 @@ import Footer from "./components/Footer";
 import HeaderFixed from "./components/HeaderFixed";
 
 import { HomeBannerSection } from "./components/HomeBanner";
-import SchoolInfoSection from "./components/SchoolInfoSection";
-import SchoolTrainingSchedule from "./components/SchoolTrainingSchedule/SchoolTrainingSchedule";
+import HomeInfoSection from "./components/HomeInfoSection";
+import SchoolTrainingModalities from "./components/SchoolTrainingModalities/SchoolTrainingModalities";
 import React from "react";
 
 export default function Home() {
@@ -24,7 +24,7 @@ export default function Home() {
         />
         
         <div id='sobre-nós-and-contato-section'>
-        <SchoolInfoSection
+        <HomeInfoSection
           description="Bem-vindo à Gajok, o seu centro de excelência em taekwondo! Com uma 
           tradição de fomentar disciplina, resiliência e excelência, 
           nossa escola se dedica a ensinar a arte do taekwondo em um ambiente acolhedor e motivador. 
@@ -41,7 +41,7 @@ export default function Home() {
         />
         </div>
         <div id='modalidades-de-treino-section'>
-        <SchoolTrainingSchedule />
+        <SchoolTrainingModalities />
         </div>
         <Footer/>
       </div>

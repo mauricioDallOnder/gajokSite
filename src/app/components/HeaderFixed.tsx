@@ -14,6 +14,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
 import logo from '../../../public/logo2.png'; // Ajuste o caminho conforme necessário
+import Link from 'next/link';
 
 const pages = [
   'Modalidades de Treino',
@@ -57,10 +58,14 @@ function HeaderFixed() {
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: '120px' }}>
           {/* Logotipo à esquerda */}
+          <Link
+        href="/"
+        passHref
+      >
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Image alt="Logo" src={logo} width={400} height={120}/>
           </Box>
-
+</Link>
           {/* Ícones do lado direito */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
             {pages.map((page) => (
