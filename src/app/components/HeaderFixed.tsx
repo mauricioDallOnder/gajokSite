@@ -66,9 +66,12 @@ function HeaderFixed() {
         href="/"
         passHref
       >
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        {isMobile? <Box sx={{ display: "flex", alignItems: 'center' }}>
+            <Image alt="Logo" src={logo} width={300} height={120}/>
+          </Box>:<Box sx={{ display: "flex", alignItems: 'center' }}>
             <Image alt="Logo" src={logo} width={400} height={120}/>
-          </Box>
+          </Box>  }
+         
 </Link>
           {/* Ícones do lado direito */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
