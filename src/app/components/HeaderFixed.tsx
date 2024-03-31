@@ -19,7 +19,6 @@ import Link from 'next/link';
 const pages = [
   'Modalidades de Treino',
   'Horários das Aulas',
-  'Guia de Poomses',
   'Galeria',
   'Sobre Nós & Contato'
 ];
