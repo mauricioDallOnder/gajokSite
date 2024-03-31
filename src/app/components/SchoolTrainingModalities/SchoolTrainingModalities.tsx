@@ -9,6 +9,7 @@ import {
   Container,
   Modal,
   Button,
+  IconButton,
 } from "@mui/material";
 import Image, { StaticImageData } from "next/image";
 import kidsImage from "../../../../public/kids.png";
@@ -18,6 +19,7 @@ import { Headline, SubHeadline } from "./styles";
 import logo from "../../../../public/logoOficialSemFundo.png";
 import treinocriana from "../../../../public/aulacriancas.jpeg";
 import adultotreino from "../../../../public/adultoTreino.jpeg";
+import CloseIcon from '@mui/icons-material/Close';
 import Link from "next/link";
 interface ModalState {
   adulto: boolean;
@@ -234,7 +236,22 @@ const ModalComponent: React.FC<ModalComponentProps> = ({
       aria-describedby="modal-modal-description"
     >
       <Box sx={styleModal}>
-        {/* Ajuste as dimensões da imagem conforme necessário */}
+      <IconButton
+          onClick={handleClose}
+          sx={{
+            position: 'absolute',
+            right:3,
+            top: -4,
+            color: 'white', // ou theme.palette.error.main para a cor do botão vermelho
+            backgroundColor:"red",
+            "&:hover": {
+              backgroundColor:"red",
+            },
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        
         <Box sx={{ width: "100%", height: 200, position: "relative", mb: 2 }}>
           <Image alt={title} src={image} layout="fill" objectFit="cover" />
         </Box>
