@@ -44,7 +44,7 @@ const styleModal = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 'auto', // Ajusta automaticamente a largura
-  maxWidth: '400px', // Limita a largura máxima para garantir margens
+  maxWidth: '90%', // Limita a largura máxima para garantir margens
   backgroundColor: "#003B8E",
   color: "#FFFFFF",
   boxShadow: 24,
