@@ -37,7 +37,11 @@ function HeaderFixed() {
     setAnchorElNav(null);
     if (page === 'Galeria') {
       window.location.href = '/GalleryPage';
-    } else {
+    } else if(page === 'Horários das Aulas'){
+      window.location.href = '/SchoolTrainingSchedulePage';
+    }
+    
+    else {
       // Substitua espaços e '&' por '-' e converta para minúsculas
       const sectionId = page.toLowerCase().replace(/&/g, 'and').replace(/\s+/g, '-');
       const sectionElement = document.getElementById(sectionId + '-section');
