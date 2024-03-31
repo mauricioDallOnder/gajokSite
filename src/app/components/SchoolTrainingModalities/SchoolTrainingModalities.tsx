@@ -43,7 +43,7 @@ const styleModal = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 'auto', // Ajusta automaticamente a largura
+  width: '300px', // Ajusta automaticamente a largura
   maxWidth: '90%', // Limita a largura máxima para garantir margens
   backgroundColor: "#003B8E",
   color: "#FFFFFF",
