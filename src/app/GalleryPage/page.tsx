@@ -1,6 +1,6 @@
-'use client';
+'use client'
 import React, { useState, useEffect } from 'react';
-import { ImageList, ImageListItem, Box, Typography, Modal, useMediaQuery, useTheme } from '@mui/material';
+import { ImageList, ImageListItem, Box, Typography, Modal, CircularProgress, useMediaQuery, useTheme } from '@mui/material';
 import HeaderFixed from '../components/HeaderFixed';
 import Footer from '../components/Footer';
 
@@ -13,6 +13,7 @@ interface InstagramMedia {
 
 export default function GalleryPage() {
   const [photos, setPhotos] = useState<InstagramMedia[]>([]);
+  const [isLoading, setIsLoading] = useState(true); // Novo estado para controlar o carregamento
   const [open, setOpen] = useState(false);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const theme = useTheme();
@@ -22,6 +23,7 @@ export default function GalleryPage() {
 
   useEffect(() => {
     async function fetchPhotos() {
+      setIsLoading(true); // Inicia o indicador de carregamento
       const response = await fetch('/api');
       if (response.ok) {
         const data: InstagramMedia[] = await response.json();
@@ -30,6 +32,7 @@ export default function GalleryPage() {
       } else {
         console.error('Failed to fetch data');
       }
+      setIsLoading(false); // Finaliza o indicador de carregamento
     }
     fetchPhotos();
   }, []);
@@ -44,7 +47,7 @@ export default function GalleryPage() {
   };
 
   const style = {
-    position: 'absolute' as 'absolute',
+    position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
@@ -65,7 +68,7 @@ export default function GalleryPage() {
           mb: 4,
           width: '80%', // Garante que a linha seja visível
         }}>
-          <Box sx={{ flexGrow: 1, height: "4px", bgcolor: "#D32F2F" }} /> {/* Altura aumentada e cor ajustada */}
+          <Box sx={{ flexGrow: 1, height: "4px", bgcolor: "#D32F2F" }} />
           <Typography variant="h4" component="span" sx={{
             mx: 2,
             fontFamily: "Big Shoulders Text",
@@ -78,20 +81,23 @@ export default function GalleryPage() {
           <Box sx={{ flexGrow: 1, height: "4px", bgcolor: "#D32F2F" }} />
         </Box>
 
-        <Box sx={{ width: '100%', maxWidth: 1200, px: isSmallScreen ? 2 : 8 }}>
-          <ImageList cols={getColsForBreakpoints()} gap={8}>
-            {photos.map((item) => (
-              <ImageListItem key={item.id} onClick={() => handleOpen(item.media_url)}>
-                <img
-                  src={item.media_url}
-                  alt={item.caption || ''}
-                  
-                  style={{ width: '100%', height: 'auto', cursor: 'pointer' }}
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </Box>
+        {isLoading ? (
+          <CircularProgress color="error" /> // Exibe o indicador de carregamento
+        ) : (
+          <Box sx={{ width: '100%', maxWidth: 1200, px: isSmallScreen ? 2 : 8 }}>
+            <ImageList cols={getColsForBreakpoints()} gap={8}>
+              {photos.map((item) => (
+                <ImageListItem key={item.id} onClick={() => handleOpen(item.media_url)}>
+                  <img
+                    src={item.media_url}
+                    alt={item.caption || ''}
+                    style={{ width: '100%', height: 'auto', cursor: 'pointer' }}
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Box>
+        )}
       </Box>
       <Modal
         open={open}
