@@ -158,7 +158,7 @@ export default function SchoolTrainingModalities() {
         handleClose={() => handleClose("criancas")}
         image={treinocriana}
         description={
-          "O Taekwondo vai além de uma simples arte marcial; é uma jornada de crescimento físico e mental para crianças. Primeiramente, promove uma melhoria significativa na saúde física e na coordenação motora, essencial durante os anos de crescimento. Além disso, ao praticar em grupo, as crianças desenvolvem habilidades sociais e aprendem o valor do trabalho em equipe, preparando-as para desafios futuros."
+          "O Taekwondo promove uma melhoria significativa na saúde física e na coordenação motora, essencial durante os anos de crescimento. Além disso, ao praticar em grupo, as crianças desenvolvem habilidades sociais e aprendem o valor do trabalho em equipe, preparando-as para desafios futuros."
         }
       />
       <ModalComponent
