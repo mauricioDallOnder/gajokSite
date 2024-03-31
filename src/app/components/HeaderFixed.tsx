@@ -1,46 +1,60 @@
-'use client'
-import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Button, Menu, MenuItem, useMediaQuery, useTheme, Box, Container, Typography } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+import React, { useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Button,
+  Menu,
+  MenuItem,
+  useMediaQuery,
+  useTheme,
+  Box,
+  Container,
+  Typography,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import Image from "next/image";
+import Link from "next/link";
 
-import logo from '../../../public/logo2.png';
+import logo from "../../../public/logo2.png";
 
 const pages = [
-  'Modalidades de Treino',
-  'Horários das Aulas',
-  'Galeria',
-  'Sobre Nós & Contato',
+  "Modalidades de Treino",
+  "Horários das Aulas",
+  "Galeria",
+  "Sobre Nós & Contato",
 ];
 
 export default function HeaderFixed() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleCloseNavMenu = (page: string) => {
     setAnchorElNav(null);
 
     // Para redirecionamentos
-    if (page === 'Galeria') {
-      window.location.href = '/GalleryPage';
-    } else if (page === 'Horários das Aulas') {
-      window.location.href = '/SchoolTrainingSchedulePage';
+    if (page === "Galeria") {
+      window.location.href = "/GalleryPage";
+    } else if (page === "Horários das Aulas") {
+      window.location.href = "/SchoolTrainingSchedulePage";
     } else {
       // Para rolar para seções na página home
-      const sectionId = page.toLowerCase().replace(/&/g, 'and').replace(/\s+/g, '-');
-      if (window.location.pathname !== '/') {
+      const sectionId = page
+        .toLowerCase()
+        .replace(/&/g, "and")
+        .replace(/\s+/g, "-");
+      if (window.location.pathname !== "/") {
         // Se não estiver na página inicial, redirecione para a página inicial e depois rola para a seção
         window.location.href = `/#${sectionId}-section`;
       } else {
         // Se já estiver na página inicial, apenas rola para a seção
         const sectionElement = document.getElementById(`${sectionId}-section`);
-        sectionElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        sectionElement?.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
   };
-
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "#00356E" }}>
@@ -83,28 +97,28 @@ export default function HeaderFixed() {
                 {page}
               </Button>
             ))}
-            <Button
-              variant="contained"
-              color="error"
-              sx={{
-                backgroundColor: "#E2001A",
-                color: "#FFFFFF",
-                fontFamily: "Big Shoulders Text",
-                fontWeight: 700,
-                fontSize: "1rem",
-              }}
-            >
-              Inscreva-se
-            </Button>
+            <Link href="https://venda.nextfit.com.br/9cb98add-dc2f-4a98-a316-344b955a1c05/contratos">
+              <Button
+                variant="contained"
+                color="error"
+                sx={{
+                  backgroundColor: "#E2001A",
+                  color: "#FFFFFF",
+                  fontFamily: "Big Shoulders Text",
+                  fontWeight: 700,
+                  fontSize: "1rem",
+                }}
+              >
+                Inscreva-se
+              </Button>
+            </Link>
           </Box>
           <IconButton
             size="large"
             aria-label="menu do aplicativo"
             aria-controls="menu-appbar"
             aria-haspopup="true"
-            onClick={() =>
-              setAnchorElNav((prev) => (prev ? null : anchorElNav))
-            }
+            onClick={(event) => setAnchorElNav(event.currentTarget)} // Atualize esta linha
             color="inherit"
             sx={{ display: { xs: "flex", md: "none" } }}
           >
@@ -121,15 +135,34 @@ export default function HeaderFixed() {
             sx={{ display: { xs: "block", md: "none" } }}
           >
             {pages.map((page) => (
+             
               <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
+                 
                 {page}
               </MenuItem>
             ))}
+            <Link href="https://venda.nextfit.com.br/9cb98add-dc2f-4a98-a316-344b955a1c05/contratos">
+              <Button
+                variant="contained"
+                color="error"
+                sx={{
+                  backgroundColor: "#E2001A",
+                  color: "#FFFFFF",
+                  fontFamily: "Big Shoulders Text",
+                  fontWeight: 700,
+                  fontSize: "1rem",
+                  display:"flex",
+                  justifyContent:"center",
+                  alignItems:"center",
+                  width:"100%"
+                }}
+              >
+                Inscreva-se
+              </Button>
+            </Link>
           </Menu>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
-
-
