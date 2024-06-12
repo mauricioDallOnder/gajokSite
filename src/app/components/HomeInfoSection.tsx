@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React from "react";
 import { Box, Grid, Typography, Paper, IconButton, Link, useTheme, useMediaQuery } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -6,7 +6,9 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 
 interface SchoolInfoSectionProps {
-  description: string;
+  mission: string;
+  vision: string;
+  values: string[];
   address: string;
   phone: string;
   email: string;
@@ -14,7 +16,9 @@ interface SchoolInfoSectionProps {
 }
 
 const SchoolInfoSection: React.FC<SchoolInfoSectionProps> = ({
-  description,
+  mission,
+  vision,
+  values,
   address,
   phone,
   email,
@@ -63,7 +67,7 @@ const SchoolInfoSection: React.FC<SchoolInfoSectionProps> = ({
 
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          {/* Description */}
+          {/* Mission */}
           <Typography
             variant="h6"
             gutterBottom
@@ -76,7 +80,7 @@ const SchoolInfoSection: React.FC<SchoolInfoSectionProps> = ({
               mb: 2,
             }}
           >
-            Quem Somos
+            Missão
           </Typography>
           <Typography
             sx={{
@@ -87,7 +91,65 @@ const SchoolInfoSection: React.FC<SchoolInfoSectionProps> = ({
               textShadow: "1px 1px 3px rgba(0, 0, 0, 0.6)",
             }}
           >
-            {description}
+            {mission}
+          </Typography>
+
+          {/* Vision */}
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{
+              fontFamily: "Big Shoulders Text",
+              color: "#FFD700",
+              fontSize: "1.5rem",
+              fontWeight: "bold",
+              textShadow: "1px 1px 4px rgba(0, 0, 0, 0.6)",
+              mb: 2,
+            }}
+          >
+            Visão
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "1.125rem",
+              lineHeight: 1.6,
+              mb: 2,
+              textAlign: "justify",
+              textShadow: "1px 1px 3px rgba(0, 0, 0, 0.6)",
+            }}
+          >
+            {vision}
+          </Typography>
+
+          {/* Values */}
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{
+              fontFamily: "Big Shoulders Text",
+              color: "#FFD700",
+              fontSize: "1.5rem",
+              fontWeight: "bold",
+              textShadow: "1px 1px 4px rgba(0, 0, 0, 0.6)",
+              mb: 2,
+            }}
+          >
+            Valores
+          </Typography>
+          <Typography
+            component="ul"
+            sx={{
+              fontSize: "1.125rem",
+              lineHeight: 1.6,
+              mb: 2,
+              textAlign: "justify",
+              textShadow: "1px 1px 3px rgba(0, 0, 0, 0.6)",
+              pl: 2,
+            }}
+          >
+            {values.map((value, index) => (
+              <li key={index} style={{ marginBottom: "8px" }}>{value}</li>
+            ))}
           </Typography>
 
           {/* Contacts */}

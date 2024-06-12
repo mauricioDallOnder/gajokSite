@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import Image, { StaticImageData } from "next/image";
 import kidsImage from "../../../../public/kids.png";
-import adultoImage from "../../../../public/adulto.png";
+
 import funcionalImage from "../../../../public/funcional.jpeg";
 import { Headline, SubHeadline } from "./styles";
 import logo from "../../../../public/logoOficialSemFundo.png";
@@ -133,12 +133,8 @@ export default function SchoolTrainingModalities() {
             image={kidsImage}
             onClick={() => handleOpen("criancas")}
           />
-          {/* Funcional */}
-          <CardComponent
-            title="Funcional"
-            image={funcionalImage}
-            onClick={() => handleOpen("funcional")}
-          />
+       
+         
         </Grid>
       </Container>
 
@@ -158,18 +154,10 @@ export default function SchoolTrainingModalities() {
         handleClose={() => handleClose("criancas")}
         image={treinocriana}
         description={
-          "O Taekwondo vai além de uma simples arte marcial; é uma jornada de crescimento físico e mental para crianças. Primeiramente, promove uma melhoria significativa na saúde física e na coordenação motora, essencial durante os anos de crescimento. Além disso, ao praticar em grupo, as crianças desenvolvem habilidades sociais e aprendem o valor do trabalho em equipe, preparando-as para desafios futuros."
+          "O Taekwondo promove uma melhoria significativa na saúde física e na coordenação motora, essencial durante os anos de crescimento. Além disso, ao praticar em grupo, as crianças desenvolvem habilidades sociais e aprendem o valor do trabalho em equipe, preparando-as para desafios futuros."
         }
       />
-      <ModalComponent
-        title="Funcional"
-        open={openModal.funcional}
-        handleClose={() => handleClose("funcional")}
-        image={funcionalImage}
-        description={
-          "O treinamento funcional melhora a força muscular e a resistência, preparando o corpo para as demandas diárias e reduzindo o risco de lesões. A natureza dinâmica desses exercícios também melhora significativamente a coordenação, agilidade e equilíbrio, fundamentais para uma vida ativa e saudável."
-        }
-      />
+     
     </Box>
   );
 }
@@ -303,3 +291,4 @@ const ModalComponent: React.FC<ModalComponentProps> = ({
     </Modal>
   );
 };
+//

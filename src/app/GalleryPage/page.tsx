@@ -1,19 +1,16 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import { ImageList, ImageListItem, Box, Typography, Modal, CircularProgress, useMediaQuery, useTheme } from '@mui/material';
 import HeaderFixed from '../components/HeaderFixed';
 import Footer from '../components/Footer';
 
-interface InstagramMedia {
-  id: string;
-  caption?: string;
-  media_type: string;
-  media_url: string;
+interface Photo {
+  url: string;
 }
 
 export default function GalleryPage() {
-  const [photos, setPhotos] = useState<InstagramMedia[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // Novo estado para controlar o carregamento
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const theme = useTheme();
@@ -23,16 +20,19 @@ export default function GalleryPage() {
 
   useEffect(() => {
     async function fetchPhotos() {
-      setIsLoading(true); // Inicia o indicador de carregamento
-      const response = await fetch('/api');
-      if (response.ok) {
-        const data: InstagramMedia[] = await response.json();
-        const filteredData = data.filter(item => item.media_type !== 'VIDEO');
-        setPhotos(filteredData);
-      } else {
-        console.error('Failed to fetch data');
+      setIsLoading(true);
+      try {
+        const response = await fetch('/api');
+        if (response.ok) {
+          const data = await response.json();
+          setPhotos(data.photos.map((url: string) => ({ url })));
+        } else {
+          console.error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.error('An error occurred while fetching the photos:', error);
       }
-      setIsLoading(false); // Finaliza o indicador de carregamento
+      setIsLoading(false);
     }
     fetchPhotos();
   }, []);
@@ -59,9 +59,9 @@ export default function GalleryPage() {
   return (
     <>
       <HeaderFixed />
-      <Box sx={{pt: 8, pb: 6, display: 'flex', justifyContent: 'center', alignItems: "center", flexDirection: "column" }}>
-       {/* Styled title com linhas visíveis */}
-       <Box sx={{
+      <Box sx={{ pt: 8, pb: 6, display: 'flex', justifyContent: 'center', alignItems: "center", flexDirection: "column" }}>
+        {/* Styled title com linhas visíveis */}
+        <Box sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -86,11 +86,11 @@ export default function GalleryPage() {
         ) : (
           <Box sx={{ width: '100%', maxWidth: 1200, px: isSmallScreen ? 2 : 8 }}>
             <ImageList cols={getColsForBreakpoints()} gap={8}>
-              {photos.map((item) => (
-                <ImageListItem key={item.id} onClick={() => handleOpen(item.media_url)}>
+              {photos.map((item, index) => (
+                <ImageListItem key={index} onClick={() => handleOpen(item.url)}>
                   <img
-                    src={item.media_url}
-                    alt={item.caption || ''}
+                    src={item.url}
+                    alt={`Foto ${index + 1}`}
                     style={{ width: '100%', height: 'auto', cursor: 'pointer' }}
                   />
                 </ImageListItem>

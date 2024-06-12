@@ -1,47 +1,20 @@
-// src/pages/api/instagram-photos.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { getServerSession } from "next-auth/next";
-import { authOptions } from '../utils/authOptions';
-import { NextRequest, NextResponse } from 'next/server';
-import { refreshAccessToken } from '../utils/refreshToken';
+import { storage } from "@/config/FirebaseConfig";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  const session = await getServerSession(
-    req as unknown as NextApiRequest,
-    {
-      ...res,
-      getHeader: (name: string) => res.headers?.get(name),
-      setHeader: (name: string, value: string) => res.headers?.set(name, value),
-    } as unknown as NextApiResponse,
-    authOptions
-  );
+  try {
+    const storageRef = ref(storage);
+    const listResult = await listAll(storageRef);
+    const urls = await Promise.all(
+      listResult.items.map(async (itemRef) => {
+        const url = await getDownloadURL(itemRef);
+        return url;
+      })
+    );
 
-  if (!session || session) {
-    //const accessToken = await refreshAccessToken();
-    const accessToken = process.env.ACESS_TOKEN_PERMANENT!
-    //const accessToken = session.accessToken;
-
-    if (!accessToken) {
-      return Response.json({ message: 'token nao disponivel.' }, { status: 401 })
-
-    }
-
-    const url = `https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url&access_token=${accessToken}`;
-
-    try {
-      const instagramResponse = await fetch(url);
-      const data = await instagramResponse.json();
-
-      if (data.error) {
-        throw new Error(data.error.message);
-      }
-
-      // Envia os dados obtidos da API do Instagram como resposta
-      return new Response(JSON.stringify(data.data), { status: 200, headers: { 'Content-Type': 'application/json' } });
-    } catch (error: any) {
-      return new Response(JSON.stringify({ message: 'Error fetching Instagram media.' }), { status: 500, headers: { 'Content-Type': 'application/json' } });
-    }
+    return new NextResponse(JSON.stringify({ photos: urls }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  } catch (error: any) {
+    return new NextResponse(JSON.stringify({ error: error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
   }
 }
-
-
